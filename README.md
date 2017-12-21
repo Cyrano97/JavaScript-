@@ -1,6 +1,6 @@
 ## JavaScript高级程序设计读书笔记
 
-
+### 第一章 “JavaScript简介”
 
 ### Markdown
 
@@ -22,9 +22,4 @@ Syntax highlighted code block
 
 
 
-### Jekyll Themes
-
-
-
-### Support or Contact
 
