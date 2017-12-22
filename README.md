@@ -15,7 +15,7 @@
  ## 第二章 “在HTML中使用JavaScript”
   
   ### 2.1 <script>元素
-  ####2.1.1 标签的位置
+  
   HTML4.01为<script>定义了下列6个属性
   
     asnyc 可选。表示应该立即下载脚本，但不应妨碍页面中的其他操作，比如下载其他资源或等待加载其他脚本。只对外部脚本文件有效
@@ -58,7 +58,39 @@
    
    通过<script>元素的src属性还可以包含来自外部域的JavaScript文件。这一点让<script>元素倍显强大，又让他备受争议。在这一点上，
 <script>与<img>元素非常相似，即它的src属性可以是指向当前HTML页面所在域之外的某个域中的完整URL   
-   
+  
+  #### 2.1.1 <script>元素
+  
+  按传统的做法，所有<script>元素都应该放在页面的<head>元素中，例如
+  
+    <!Document html>
+    <html>
+      <head>
+        <title>Example HTML Page</title>
+        <script type="text/javascript" src="example1.js"></script>
+        <script type="text/javascript" src="example2.js"></script>
+      </head>
+      <body>
+        <!-- 这里放内容 -->
+      </body>
+    </html>
+  
+  这种做法的目的就是把所有外部文件(包括CSS文件和JavaScript文件)的引用都放在相同的地方，在文档的<head>元素中包含所有JavaScript文件，意味着必须等待全部JavaScript代码都被下载、解析和执行完成以后，才能开始呈现页面的内容(浏览器在遇到<body>标签时才开始呈现内容)。对应那些需要很多JavaScript代码的页面来说，这无疑会导致浏览器在呈现页面时出现明显的延迟，而延迟期间的浏览器窗口将是一片空白。为了避免这个问题，现代web应用程序一般都把全部JavaScript引用放在<body>元素中页面内容的后面
+  
+    <!Document html>
+    <html>
+      <head>
+        <title>Example HTML Page</title>
+      </head>
+      <body>
+        <!-- 这里放内容 -->
+        <script type="text/javascript" scr="example1.js"></script>
+        <script type="text/javascript" scr="example2.js"></script>
+      </body>
+    </html>
+ 这样，在解析包含的JavaScript代码之前，页面的内容将完全呈现在浏览器中，而用户也会因为浏览器窗口显示空白页面时间缩短而感到打开页面的速度加快了
+ 
+ 
   
   
   
