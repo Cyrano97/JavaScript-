@@ -87,9 +87,52 @@
         <script type="text/javascript" scr="example2.js"></script>
       </body>
     </html>
+    
  这样，在解析包含的JavaScript代码之前，页面的内容将完全呈现在浏览器中，而用户也会因为浏览器窗口显示空白页面时间缩短而感到打开页面的速度加快了
  
+ #### 2.1.2延迟脚本
  
+ HTML4.01 为<script>标签定义了defer属性，这个属性的用途是表明脚本在执行时不会影响页面的构造。也就是说，脚本会被延迟到整个页面都解析完毕后再运行。
+ 因此，在<script>元素中设置defer属性，相当于告诉浏览器立即下载，但延迟执行
+ 
+    <!Document html>
+    <html>
+      <head>
+        <title>example</title>
+        <script type="text/javascript" defer="defer" src="example1.js"></script>
+        <script tyep="text/javascript" defer="defer" scr="example2.js"></script>
+      </head>
+      <body>
+        <!-- 在这里放内容 -->
+      </body>
+    </html>
+    
+ #### 2.1.3异步脚本
+ 
+ HTML5为<script>元素定义了async属性。这个属性与defer属性相似，都用于改变处理脚本的行为。async脚本只适用于外部脚本文件，并告诉浏览器立即下载文件。但是与defer不同的是，标记为async的脚本并不保证按照它们的先后顺序执行。例如
+   
+     <!Document html>
+     <html>
+      <head>
+        <title>example</title>
+        <script type="text/script" async src="example1.js"></script>
+        <script type="text/script" async scr="example2.js"></script>
+      </head>
+        <!-- 在这里放内容 --->
+      <body>
+      </body>
+     </html>
   
+  以上代码中，第二个脚本文件可能会在第一个脚本文件之前执行。因此，确保两着之间互不依赖很重要。指定async属性的目的是不让页面等待两个脚本下载和执行，从而异步加载页面其他内容。我从，建议异步脚本不要在加载期间修改DOM
   
+  异步脚本一定会在页面的load事件前执行，但可能会在DOMContentLoaded事件触发之前或之后执行。支持异步脚本的浏览器有FireFox3.6,Safari 5和Chrome
   
+ ### 2.2 嵌入代码和外部文件
+ 
+ 支持使用的外部文件的人多会强调如下优点
+ 
+    >可维护性
+    
+    >>可缓存
+    
+    >>>适应未来
