@@ -2,7 +2,7 @@
 
 ## 第一章 “JavaScript简介”
 
-  `文档对象模型`（DOM，Document Object Model）是针对XML但是经过拓展用于HTML的应用程序编辑接口(API,Application Programming Interface)。DOM把整个页面映射为一个多层节点结构。HTML或XML页面中的每个组成部分都是某种类型的节点，这些节点又包含着不同类型的数据。
+  **文档对象模型**（DOM，Document Object Model）是针对XML但是经过拓展用于HTML的应用程序编辑接口(API,Application Programming Interface)。DOM把整个页面映射为一个多层节点结构。HTML或XML页面中的每个组成部分都是某种类型的节点，这些节点又包含着不同类型的数据。
   
   JavaScript由三个不同部分组成
     
@@ -16,7 +16,7 @@
   
   ### 2.1 <script>元素
   
-  HTML4.01为<script>定义了下列6个属性
+  HTML4.01为**<script>**定义了下列6个属性
   
     asnyc 可选。表示应该立即下载脚本，但不应妨碍页面中的其他操作，比如下载其他资源或等待加载其他脚本。只对外部脚本文件有效
     
@@ -148,5 +148,5 @@
  
  把JavaScript插入到HTML页面中要使用<script>元素。使用这个元素可以吧JavaScript嵌入到HTML页面中，让脚本和标记混合到一起；也可以包含外部的JavaScript文件。而我们需要注意的地方有:
     
-    *在包含外部JavaScript文件时，必须将src属性设置为指向相应文件的URL
+    * 在包含外部JavaScript文件时，必须将src属性设置为指向相应文件的URL
     
