@@ -148,5 +148,5 @@
  
  把JavaScript插入到HTML页面中要使用<script>元素。使用这个元素可以吧JavaScript嵌入到HTML页面中，让脚本和标记混合到一起；也可以包含外部的JavaScript文件。而我们需要注意的地方有:
     
-    * 在包含外部JavaScript文件时，必须将src属性设置为指向相应文件的URL
+ * 在包含外部JavaScript文件时，必须将src属性设置为指向相应文件的URL
     
