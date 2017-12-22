@@ -12,7 +12,7 @@
    
  ### 第二章 “在HTML中使用JavaScript”
   
-  _2.1 <script>元素_
+  ***2.1 <script>元素***
   
   HTML4.01为<script>定义了下列6个属性
   
