@@ -290,10 +290,35 @@
      
      var car=null;
      alert(typeof car);  // "object"
+   
+   如果定义的变量准备在将来用于保存对象，那么最好将该变量初始化为null，而不是其他值，这样一来，只要直接检查null值就可以指定相应的变量是否已经保存一个对象的引用，如下列所示：
+   
+    if（car!=null）{
+      // 对car对象执行某些操作
+    }
+   
+   实际上，undefined值也是派生自null值，因此ECMA-262规定对它们的相等性测试要返回true
+   
+    alert(null==undefined); // true
+    
+   这里，位于null和undefined之间的相等操作符（==）总是返回true，不过要注意的是，这个操作符出于比较的目的会转换其操作数。
+   
+   尽管null和undefined有这样的关系，但它们的用途完全不同。
+   
+    只要意在保存对象的变量还没真正保存对象，就应该明确地让该变量保存null值。这样做不仅可以体现null作为空对象指针的惯例，而且也有助于进一步区分null和undefined。
+    
     
   ### 3.4.4 Boolean类型
   
-   
-   
+  Boolean类型是ECMAScript中使用最多的一种类型，该类型只有两个字面值：true和false。这两个值与数字值不是同一回事，因此true不一定等于1，而false也不一定等于0。
+  
+    var found=true;
+    var lost=false;
+    
+  虽然Boolean类型的字面值只有两个，但ECMAScript中所有类型的值都有这两个Boolean等价的值。要将一个值转换为其对应的Boolean值，可以调用转型函数Boolean(）,例子
+  
+    var message="Hello World!":
+    var messageAsBoolean=Boolean(message):
+  
   ### 3.4.5 Number类型
    
