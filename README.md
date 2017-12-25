@@ -319,6 +319,9 @@
   
     var message="Hello World!":
     var messageAsBoolean=Boolean(message):
+  在这个例子中，字符串message被转换成一个Boolean值，该值被保存自messageAsBoolean变量中。可以对任何数据类型的值调用Boolean（）函数，而且总会返回一个Boolean类型的值。至于这个值是true还是false，取决于要转换值的数据类型及其实际值。
+  
+  表见书p26~27
   
   ### 3.4.5 Number类型
    
