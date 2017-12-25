@@ -357,7 +357,9 @@
   
   用双引号""和单引号''表示的字符串完全相同
   
-  1、String数据类型包含一些特殊的字符字面量，也叫转义序列，用于表示非打印字符，可见表
+  1、字符串字面量
+  
+  String数据类型包含一些特殊的字符字面量，也叫转义序列，用于表示非打印字符，可见表
   
   *表见书p33*
   
@@ -365,8 +367,72 @@
   
      var text="This is the lette sigma:\u03a3.";
      alert(text.length);   //输出28
+     
+  这个属性返回的字符数包括16位字符的数目。如果字符串中包含双字节字符，那么length属性可能不会精准地返回字符串中的字符数目。
   
+  2、字符串的特点
+  
+  EMACScript中字符串是不可变的，也就是说，字符串一旦创建，它们的值就不能改变。要改变某个变量保存的字符串，首先要销毁原来的字符串，然后再用另一个包含新值的字符串填充该变量。例如：
+  
+    var lang="Java";
+    lang=lang+"Script";
+  
+  以上示例中的变量lang开始时包含字符串“Java”。而第二行代码把lang的值重新定义为"Java"与"Script"的组合，即"JavaScript"。
+  实现这个操作的过程如下：
+     
+     1、首先创建一个能容纳10个字符的字符串
+     2、然后在这个字符串中填充"Java"和"Script"
+     3、最后一步是销毁原来的字符串"Java"和字符串"Script"，因为这两个字符串语句没用了。
+     
+  这个过程是在后台发生的，这也就是在某些旧版本的浏览器(例如版本低于1.0的Firefox、IE6等)中拼接字符串时速度很慢的原因所在。
+  
+  3、转化为字符串
+ 
+  要把一个值转化为字符串有两种方法。第一种是使用几乎每个值都会有的toString()方法，这个方法的唯一要做的就是返回相应值的字符串表现。例子：
+  
+   	var age=11;
+				ageAsString=age.toString(); // 字符串"11"
+				var found=true;
+				foundAsString=found.toString(); // 字符串"true"
+    
+  数值、布尔值、对象和字符串值(没错，每个字符串也都有一个toString方法，该方法返回字符串的一个副本)都有toString方法。但null和undefined值没有这个方法。
+  
+  多数情况下，调用toString()方法不必传递参数。但是，在调用数值的toString（）方法时，可以传递一个参数：输出数值的基数。默认情况下，toString()方法十进制格式返回数值的字符串表示。而通过传递基数，toString（）可以输出二进制、八进制、十六进制，乃至其他任意有效进制格式表示的字符串值。例子:
+  
+     var num=10;
+     alert(num.toString());   // "10"
+     alert(num.toString(2));  // 二进制表示 "1010"
+     alert(num.toString(8));  // 八进制表示 "12"
+     alert(num.toString(10)); // 十进制表示 "10"
+     alert(num.toString(16)); // 十六进制表示 "a"
+     
+  通过这个例子可以看出，通过指定基数，toString（）方法会改变输出的值。而数值10根据基数不同，可以在输出时候被转换为不同的数值格式。注意，默认的(没有参数的）输出值与指定基数10的输出值相同。
+  
+  在不知道要转换的值是不是null或undefined的情况下，还可以使用转型函数String（），这个函数能够将任何类型的值转换为字符串。String（）函数遵循下列转换规则
+  
+    * 如果值有toString()方法，则调用该方法(没有参数)并返回相应的结果
+    * 如果值是null，则返回"null"
+    * 如果值是undefined，则返回"undefined"
+  
+  下面是结果例子：
+  
+    var value1=10；
+    var value2=true;
+    var value3=null;
+    var value4;
+    
+    alert("value1="+String(value1));  // "10"
+    alert("value2="+String(value2));  // "true"
+    alert("value3="+String(value3));  // "null"
+    alert("value4="+String(value4));  // "undefined"
+    
+    这里先后转换了4个值：数值、布尔值、null和undefined。数值和布尔值的转换结果与调用toString（）方法得到的结果相同。因为null和undefined没有toString（）方法，使用String（）返回了两个值的字面量。
+    
+  如果要把某个值转换为字符串，可以使用加号操作符把它和一个字符串（""）加到一起
+     
   ### 3.4.7 Object类型
+  
+  
   
   ## 3.5 操作符
   
