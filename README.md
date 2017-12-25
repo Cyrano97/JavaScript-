@@ -279,5 +279,21 @@
     
   ### 3.4.2 undefined 类型
     
+   undefined类型只有一个值，即特殊的undefined。在使用var声明变量但未对其加以初始化时，这个变量的值就是undefined。例如
    
+     var message;
+     alert(message==undefinde); // true
+     
+  ### 3.4.3 Null类型
+    
+   null类似是第二个只有一个值的数据类型，这个特殊的值是null。从逻辑角度来看，null值表示应该空对象指针，而这个也是正是用typeof操作符检测null值返回object的原因。如下面例子：
+     
+     var car=null;
+     alert(typeof car);  // "object"
+    
+  ### 3.4.4 Boolean类型
+  
+   
+   
+  ### 3.4.5 Number类型
    
