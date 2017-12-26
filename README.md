@@ -440,7 +440,16 @@
   
     var 0=new Object; //有效，但不推荐省略圆括号
     
-  
+  在ECMAScript中，（就像Java中的java.lang.Object一样）Object类型是所有它的实例的基础。换句话说，Object类型所具有的任何属性和方法也同样存在于更具体的对象中。  
+  	
+    * constructor: 保存着用于创建当前对象的目录。对前面的例子而言，构造函数(constructor)就是object(）。
+    * hasOwnProperty(propertyName): 用于检查给的属性在当前对象实例中（而不是在实例原型中）是否存在。其中，作为参数的属性名（propertyName）必须以字符串形式指定(例如：o.hasOwnProperty("name"))。
+    * isPrototepyOf(propertyName):用于检查传入的对象是否是当前对象的原型
+    * propertyIsEnumerable(propertyName):用于检查给定的属性能否能够作为for-in语句来枚举。与hasOwnerProperty方法一样，作为参数的属性名必须以字符串形式指定
+    * toLoactionString(): 返回对象的字符串表示，该字符串与执行环境的地区对应
+    * toString():返回对象的字符串表示
+    * valueOf():返回对象的字符串、数值或者布尔值表示，通常与toString（）方法的返回值相同
+    
   
   ## 3.5 操作符
   
