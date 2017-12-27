@@ -589,7 +589,7 @@
  	 alert(pattern instanceof RegExp): //变量pattern是RegExp吗？
   
   根据规定，所有引用类型的值都是Object的实例。因此，在检测一个引用类型和Object构造函数时，instanceof操作符始终会返回true。当然，如果instanceof操作符检测基本类型的值，则该操作符始终会返回false，因为基本类型不是对象。
-  
+  ![](/img/JavaScriptNote3.png)
   ## 4.2 执行环境及作用域
   
   ### 4.2.1 延长作用域链
@@ -604,4 +604,4 @@
   
   ## 4.4 小结
  
-  [回到顶部](#JavaScript高级程序设计读书笔记)
+  [回到顶部](#JavaScript由三个不同部分组成)
