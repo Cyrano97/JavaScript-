@@ -521,9 +521,9 @@
   ### 4.1.2 复制变量值
   
   *复制基本类型值VS复制复杂类型值* 区别见书p69~70
-  ```
-  	var num=5;
- 	var num1=num; 
+  ```JavaScript
+  var num=5;
+  var num1=num; 
   ```
   传递基本类型的时候，副本是一个值 ![](/img/JavaScriptNote1.png)
   
@@ -550,8 +550,8 @@
   	
  ```javaScript	
   function addTen(num){
-  	num+=10;
-	return num;
+    num+=10;
+    return num;
   }
   var count=20;
   var result=addTen(count);
@@ -565,7 +565,7 @@
   
   ```javaScript
   function setName（obj）{
-  	obj.name="Nicholas":
+    obj.name="Nicholas":
   }
   var person=new Object():
   setName(person);
@@ -578,9 +578,9 @@
   
   ```JavaScript
   fuction setName(obj){
-  	obj.name="Nicholas";
-	obj=new Object();
-	obj.name="Greg";
+    obj.name="Nicholas";
+    obj=new Object();
+    obj.name="Greg";
   }
   var person=new Object();
   setName（person）;
