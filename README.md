@@ -18,42 +18,40 @@
   
   HTML4.01为 <**script**> 定义了下列6个属性
   
-    asnyc 可选。表示应该立即下载脚本，但不应妨碍页面中的其他操作，比如下载其他资源或等待加载其他脚本。只对外部脚本文件有效
-    
-    charset 可选。表示通过src属性指定的代码的字符集。由于大多数脚本会忽略它的值，因此这个属性很少有人用
-    
-    defer 可选。表示脚本可以延迟到文档完全被解析和显示之后再执行。只对外部脚本文件有效。IE7及更高版本对嵌入脚本也支持这个属性
-    
-    language 已废弃。原来用于表示编写代码使用的脚本语言（如JavaScript、JavaScript1.2或VBScript）。大多数浏览器或忽略这个属性，因此也没有必要再用       
-    
-    src 可选，表示包含要执行代码的外部文件 
-      
-    type 可选。可以看成是language的替代属性:表示编写代码使用的脚本语言的内容类型（也称为MIME类型）。虽然text/JavaScript和text/ecmascript都已经不被推荐使用，但人们一直以来使用的还是text/JavaScript。实际上，服务器在传送JavaScript文件审核使用的MIME类型通常是application/x_JavaScript，但在type中设置这个值却有可能导致脚本被忽略。另外，在非IE浏览器中还可以使用以下值:application/JavaScript和application /ecmascript。考虑到约定俗成和最大限度的浏览器兼容性，目前type属性的值依旧还是text/JavaScript。不过，这个属性并不是必需的，如果没有指定这个属性，其默认值认为text/JavaScript。
+ * asnyc 可选。表示应该立即下载脚本，但不应妨碍页面中的其他操作，比如下载其他资源或等待加载其他脚本。只对外部脚本文件有效 
+ * charset 可选。表示通过src属性指定的代码的字符集。由于大多数脚本会忽略它的值，因此这个属性很少有人用
+ * defer 可选。表示脚本可以延迟到文档完全被解析和显示之后再执行。只对外部脚本文件有效。IE7及更高版本对嵌入脚本也支持这个属性
+ * language 已废弃。原来用于表示编写代码使用的脚本语言（如JavaScript、JavaScript1.2或VBScript）。大多数浏览器或忽略这个属性，因此也没有必要再用       
+ * src 可选，表示包含要执行代码的外部文件  
+ * type 可选。可以看成是language的替代属性:表示编写代码使用的脚本语言的内容类型（也称为MIME类型）。虽然text/JavaScript和text/ecmascript都已经不被推荐使用，但人们一直以来使用的还是text/JavaScript。实际上，服务器在传送JavaScript文件审核使用的MIME类型通常是application/x_JavaScript，但在type中设置这个值却有可能导致脚本被忽略。另外，在非IE浏览器中还可以使用以下值:application/JavaScript和application /ecmascript。考虑到约定俗成和最大限度的浏览器兼容性，目前type属性的值依旧还是text/JavaScript。不过，这个属性并不是必需的，如果没有指定这个属性，其默认值认为text/JavaScript。
 
 
   使用<script>元素的方式有两种：直接在页面中嵌入JavaScript代码和包含外部JavaScript文件
   
   在使用<script>元素嵌入JavaScript代码时，只须为<script>指定type属性。像下面这样把JavaScript代码直接放在元素内部即可
-    
-    <script type="text/javascript">
-      function sayHi(){
-          alert("Hi!");
-      }
-  
+   
+  ```JavaScript 
+  <script type="text/javascript">
+     function sayHi(){
+         alert("Hi!");
+     }
+  ```
   包含在<script>元素内部的JavaScript的代码将被从上至下依次解释。就拿前面这个例子来说，解释器会解释一个函数的定义，然后将该定义保存在自己的环境当中。在解释器对<script>元素内部的所有代码求值完毕前，页面中的其余内容都不会被浏览器加载或显示。
   
   在使用<script>嵌入JavaScript代码时，记住不要在代码中任何地方出现"</script>"字符串。
   因为按照解析嵌入式代码规则，当浏览器遇到字符串"</script>"时，就会认为那是结束的<script>标签，而通过转义字符"\"解决这个问题。
     
-    <script type="text/javascript">
-      function(){
-        alert("<\script>");
-      }
-     
+  ```JavaScript
+  <script type="text/javascript">
+     function(){
+       alert("<\script>");
+     }
+  ```
    如果要通过<script>元素来包含外部JavaScript文件，那么src元素就是必须的。这个属性的值是一个指向外部JavaScript的链接，例
-      
-      <script type="text/javascript" src="example.js"/>
-      
+  
+  ```JavaScript   
+   <script type="text/javascript" src="example.js"/>
+   ``` 
    但在不能在HTML文档中使用这种语法。这个语法不符合HTML规范，也得不到某些浏览器(尤其是IE)的正确解析
    
    通过<script>元素的src属性还可以包含来自外部域的JavaScript文件。这一点让<script>元素倍显强大，又让他备受争议。在这一点上，<script>与<img>元素非常相似，即它的src属性可以是指向当前HTML页面所在域之外的某个域中的完整URL   
@@ -62,67 +60,71 @@
   
   按传统的做法，所有<script>元素都应该放在页面的<head>元素中，例如
   
-    <!Document html>
-    <html>
-      <head>
-        <title>Example HTML Page</title>
-        <script type="text/javascript" src="example1.js"></script>
-        <script type="text/javascript" src="example2.js"></script>
-      </head>
-      <body>
-        <!-- 这里放内容 -->
-      </body>
-    </html>
-  
+  ```HTML
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>Example HTML Page</title>
+      <script type="text/javascript" src="example1.js"></script>
+      <script type="text/javascript" src="example2.js"></script>
+    </head>
+    <body>
+      <!-- 这里放内容 -->
+    </body>
+  </html>
+  ```
   这种做法的目的就是把所有外部文件(包括CSS文件和JavaScript文件)的引用都放在相同的地方，在文档的<head>元素中包含所有JavaScript文件，意味着必须等待全部JavaScript代码都被下载、解析和执行完成以后，才能开始呈现页面的内容(浏览器在遇到<body>标签时才开始呈现内容)。对应那些需要很多JavaScript代码的页面来说，这无疑会导致浏览器在呈现页面时出现明显的延迟，而延迟期间的浏览器窗口将是一片空白。为了避免这个问题，现代web应用程序一般都把全部JavaScript引用放在<body>元素中页面内容的后面
-  
-    <!Document html>
-    <html>
-      <head>
-        <title>Example HTML Page</title>
-      </head>
-      <body>
-        <!-- 这里放内容 -->
-        <script type="text/javascript" scr="example1.js"></script>
-        <script type="text/javascript" scr="example2.js"></script>
-      </body>
-    </html>
-    
+
+```HTML 
+ <!DOCTYPE html>
+ <html>
+   <head>
+     <title>Example HTML Page</title>
+   </head>
+   <body>
+     <!-- 这里放内容 -->
+     <script type="text/javascript" scr="example1.js"></script>
+     <script type="text/javascript" scr="example2.js"></script>
+   </body>
+ </html>
+ ```   
  这样，在解析包含的JavaScript代码之前，页面的内容将完全呈现在浏览器中，而用户也会因为浏览器窗口显示空白页面时间缩短而感到打开页面的速度加快了
  
  #### 2.1.2延迟脚本
  
  HTML4.01 为<script>标签定义了defer属性，这个属性的用途是表明脚本在执行时不会影响页面的构造。也就是说，脚本会被延迟到整个页面都解析完毕后再运行。
  因此，在<script>元素中设置defer属性，相当于告诉浏览器立即下载，但延迟执行
- 
-    <!Document html>
-    <html>
-      <head>
-        <title>example</title>
-        <script type="text/javascript" defer="defer" src="example1.js"></script>
-        <script tyep="text/javascript" defer="defer" scr="example2.js"></script>
-      </head>
-      <body>
-        <!-- 在这里放内容 -->
-      </body>
-    </html>
-    
+	
+ ```HTML
+ <!DOCTYPE html>
+ <html>
+   <head>
+     <title>example</title>
+     <script type="text/javascript" defer="defer" src="example1.js"></script>
+     <script tyep="text/javascript" defer="defer" scr="example2.js"></script>
+   </head>
+   <body>
+     <!-- 在这里放内容 -->
+   </body>
+ </html>
+ ```   
  #### 2.1.3异步脚本
  
  HTML5为<script>元素定义了async属性。这个属性与defer属性相似，都用于改变处理脚本的行为。async脚本只适用于外部脚本文件，并告诉浏览器立即下载文件。但是与defer不同的是，标记为async的脚本并不保证按照它们的先后顺序执行。例如
-   
-     <!Document html>
-     <html>
-      <head>
-        <title>example</title>
-        <script type="text/script" async src="example1.js"></script>
-        <script type="text/script" async scr="example2.js"></script>
-      </head>
-        <!-- 在这里放内容 --->
-      <body>
-      </body>
-     </html>
   
+ ```HTML
+ <!DOCTYPE html>
+ <html>
+  <head>
+    <title>example</title>
+    <script type="text/script" async src="example1.js"></script>
+    <script type="text/script" async scr="example2.js"></script>
+  </head>
+    <!-- 在这里放内容 -->
+  <body>
+  </body>
+ </html>
+ ``` 
   以上代码中，第二个脚本文件可能会在第一个脚本文件之前执行。因此，确保两着之间互不依赖很重要。指定async属性的目的是不让页面等待两个脚本下载和执行，从而异步加载页面其他内容。我从，建议异步脚本不要在加载期间修改DOM
   
   异步脚本一定会在页面的load事件前执行，但可能会在DOMContentLoaded事件触发之前或之后执行。支持异步脚本的浏览器有FireFox3.6,Safari 5和Chrome
@@ -172,8 +174,8 @@
  
   所谓标识符，就是指变量、函数、属性的名字，或者函数的参数，标识符可以是按照下列格式规则组合起来的一个或者多个字符：
     
-    * 第一个字符必须是一个字母、下划线（_）或者一个美元符号
-    * 其他字符可以是字母、下划线、美元符号或数字
+    - 第一个字符必须是一个字母、下划线（_）或者一个美元符号
+    - 其他字符可以是字母、下划线、美元符号或数字
     
   按照惯例，ECMAScript中标识符采用驼峰大小写格式，也就是第一个字母小写，剩下的每个单词的字母都大写
  
@@ -197,28 +199,31 @@
  这是一个编译指令，用于告诉支持的JavaScript引擎切换到严格模式。
 
  在函数内部的上方包含这条编译指令，也可以指定函数在严格模式下执行：
-    
+  
+  ```JavaScript
     function doSomething(){
       "use strict";
       // 函数体
     }
-    
+  ```  
 ### 3.1.5 语句
 
  EMCAScript中的语句以一个分号结尾
 
-    var sum=a+b    // 即使，没有分号也是有效的语句——不推荐
-    var diff=a-b;  // 有效的语句——推荐
-    
+   ```JavaScript
+   var sum=a+b    // 即使，没有分号也是有效的语句——不推荐
+   var diff=a-b;  // 有效的语句——推荐
+   ``` 
  可以使用C风格的语法把多条语句组合到一个代码块中。虽然条件控制语句(如if语句)只在执行多条语句的情况下才要求使用代码块，但最佳实践是始终在控制语句中使用代码块——即使代码块中只有一句语句，例如
 
-    if(test)
-     alert(test); // 有效但容易出错，不要使用
+  ```JavaScript
+   if(test)
+    alert(test); // 有效但容易出错，不要使用
 
-    if(test){
-     alert(test); // 推荐使用
-    }
-    
+   if(test){
+    alert(test); // 推荐使用
+   }
+ ```   
 ## 3.2 关键字和保留字
 
 见书p21~22
@@ -226,37 +231,37 @@
 ## 3.3 变量
 
   ECMAScript的变量是松散类型的（弱类型语言），所谓松散类型即使可以用来保存任何类型的数据。换句话说，每个变量仅仅是一个用于保存值的占位符而已。定义变量时要使用var操作符（注意var是一个关键字），后跟变量名（即一个标识符）。
- 
+ ```JavaScript
      var message;
-     
+ ```    
   这行代码定义了一个名为message的变量，该变量可以用来保存任何值(像注意未经过初始化的变量，会保留一个特殊的值——undefined)
   
   有一点必须注意，即用var操作符定义的变量将成为定义该变量的作用域中的局部变量，也就是如果在函数中使用var定义一个变量，那么这个变量在函数退出后就会被销毁。
-    
+  ```JavaScript  
     funciton test(){
      var message="hi"; // 局部变量
     }
     test();
     alert(message); // 错误!
-    
+  ```  
   这里，变量message是在函数中使用var定义的，当函数被调用时，就会创建该变量并为其赋值。而在此之后，这个变量又会被立即销毁，因此例子中的下一行代码就会导致错误。不过，可以像下面这样忽略var操作符，从而创建一个全局变量
-  
+  ```JavaScript
     function test(){
      message="hi"; // 全局变量
     }
     test();
     alert(message); // "hi"
-    
+  ```  
   这个例子忽略了var操作符，然而message就成了全局变量。这样，只要调过一次test()函数，这个变量就有了定义，就可以在函数外部的任何地方被访问到。
   
     虽然忽略var操作符可以定义全局变量，但这也不是我们推荐的做法。因为在局部作用域中定义的全局变量很难维护
     
   可以用一条语句定义了多个变量，只要像下面这样把每个变量（初始化或不初始化均可）用逗号分隔开即可：
-    
+   ```JavaScript 
     var message="hi",
         found=false,
         age=29;
-        
+   ```     
  ## 3.4 数据类型
    
    ECMAScript中有五种简单数据类型（也称为基本数据类型）：undefined、Null、Boolean、Number和String，还有一种复杂数据类型——Object,Object本质是一组无序的名值对组成的。ECMAScript下不支持任何创建自定义类型的机制，而所有值最终都是上述6种数据类型之一。乍一看，好像只有6种数据类型不足以表示所有数据：但是，由于ECMAScript数据类型具有动态性，因此的确没有再定义其他数据类型的必要了。
@@ -265,12 +270,12 @@
  
    鉴于ECMAScript是松散类型的，因此需要有一种手段来检测给定变量的数据类型——typeof就是负责提供这方面信息的操作符。对一个值使用typeof操作符可能返回下列某个字符串：
    
-    * “undefinde”——如果这个值未定义;
-    * “Boolean”——如果这个值是布尔值；
-    * “string”——如果这个值是字符串;
-    * “number”——如果这个值是数值;
-    * “object”——如果这个值是对象或null;
-    * “function”——如果这个值是函数;
+   * “undefinde”——如果这个值未定义;
+   * “Boolean”——如果这个值是布尔值；
+   * “string”——如果这个值是字符串;
+   * “number”——如果这个值是数值;
+   * “object”——如果这个值是对象或null;
+   * “function”——如果这个值是函数;
    
  typeof操作符的操作数可以是变量,也可以是数值字面量。
     
@@ -283,27 +288,27 @@
   ### 3.4.2 undefined 类型
     
    undefined类型只有一个值，即特殊的undefined。在使用var声明变量但未对其加以初始化时，这个变量的值就是undefined。例如
-   
+   ```JavaScript
      var message;
      alert(message==undefinde); // true
-     
+   ```   
   ### 3.4.3 Null类型
     
    null类似是第二个只有一个值的数据类型，这个特殊的值是null。从逻辑角度来看，null值表示应该空对象指针，而这个也是正是用typeof操作符检测null值返回object的原因。如下面例子：
-     
+   ```JavaScript  
      var car=null;
      alert(typeof car);  // "object"
-   
+   ```
    如果定义的变量准备在将来用于保存对象，那么最好将该变量初始化为null，而不是其他值，这样一来，只要直接检查null值就可以指定相应的变量是否已经保存一个对象的引用，如下列所示：
-   
+   ```JavaScript
     if（car!=null）{
       // 对car对象执行某些操作
     }
-   
+   ```
    实际上，undefined值也是派生自null值，因此ECMA-262规定对它们的相等性测试要返回true
-   
+   ```JavaScript
     alert(null==undefined); // true
-    
+   ``` 
    这里，位于null和undefined之间的相等操作符（==）总是返回true，不过要注意的是，这个操作符出于比较的目的会转换其操作数。
    
    尽管null和undefined有这样的关系，但它们的用途完全不同。
@@ -314,14 +319,15 @@
   ### 3.4.4 Boolean类型
   
   Boolean类型是ECMAScript中使用最多的一种类型，该类型只有两个字面值：true和false。这两个值与数字值不是同一回事，因此true不一定等于1，而false也不一定等于0。
-  
+  ```JavaScript
     var found=true;
     var lost=false;
-    
+  ``` 
   虽然Boolean类型的字面值只有两个，但ECMAScript中所有类型的值都有这两个Boolean等价的值。要将一个值转换为其对应的Boolean值，可以调用转型函数Boolean(）,例子
-  
+  ```JavaScript
     var message="Hello World!":
     var messageAsBoolean=Boolean(message):
+  ```
   在这个例子中，字符串message被转换成一个Boolean值，该值被保存自messageAsBoolean变量中。可以对任何数据类型的值调用Boolean（）函数，而且总会返回一个Boolean类型的值。至于这个值是true还是false，取决于要转换值的数据类型及其实际值。
   
   *表见书p26~27*
@@ -329,22 +335,22 @@
   ### 3.4.5 Number类型
    
   最基本的数值字面格式是十进制整数，十进制整数可以像下面这样直接在代码中输入：
-   
+  ```JavaScript 
     var intNum=55; // 整数
-    
+  ```  
   除了十进制表示外，整数还可以通过八进制（以8为基数）或十六进制（以16为基数）的字面值来表示。其中，八进制的字面值第一位必须是零（0），然后是八进制数字序列（0~7）。如果字面值中的数值超出了范围，那么前面的零将被忽略，后面的数值将被当做十进制数值解析。请看下面的例子
-  
+ ```JavaScript 
     var octalNum1=070; // 八进制的56
     var octalNum2=079; // 无效的八进制数值——解析为79
     var octalNum3=08;  // 无效的八进制数值——解析为8
-  
+ ``` 
   八进制字面量在严格模式下是无效的。会导致支持该模式的JavaScript引擎抛出错误
   
   十六进制字面值的前两位必须是0X，后跟任何十六进制数字（0~9及A~F）。其中，A~F可以大写，也可以小写。
-  
+  ```JavaScript
     var hexNum1=0xA;  // 十六进制的10
     var henNum2=0x1f; // 十六进制的31
-    
+  ```  
   在进行算术计算时，所有以八进制和十六进制表示的数值最终都将被转换成十进制数值。
   
   1、浮点数值 *见书p28*
@@ -366,19 +372,19 @@
   *表见书p33*
   
   任何字符串的长度都可以通过访问其length属性取得，例如
-  
+  ```JavaScript
      var text="This is the lette sigma:\u03a3.";
      alert(text.length);   //输出28
-     
+  ```   
   这个属性返回的字符数包括16位字符的数目。如果字符串中包含双字节字符，那么length属性可能不会精准地返回字符串中的字符数目。
   
   2、字符串的特点
   
   EMACScript中字符串是不可变的，也就是说，字符串一旦创建，它们的值就不能改变。要改变某个变量保存的字符串，首先要销毁原来的字符串，然后再用另一个包含新值的字符串填充该变量。例如：
-  
+  ```JavaScript
     var lang="Java";
     lang=lang+"Script";
-  
+  ```
   以上示例中的变量lang开始时包含字符串“Java”。而第二行代码把lang的值重新定义为"Java"与"Script"的组合，即"JavaScript"。
   实现这个操作的过程如下：
      
@@ -391,23 +397,23 @@
   3、转化为字符串
  
   要把一个值转化为字符串有两种方法。第一种是使用几乎每个值都会有的toString()方法，这个方法的唯一要做的就是返回相应值的字符串表现。例子：
-  
-   	var age=11;
-				ageAsString=age.toString(); // 字符串"11"
-				var found=true;
-				foundAsString=found.toString(); // 字符串"true"
-    
+  ```JavaScript
+     var age=11;
+     ageAsString=age.toString(); // 字符串"11"
+     var found=true;
+     foundAsString=found.toString(); // 字符串"true"
+  ```  
   数值、布尔值、对象和字符串值(没错，每个字符串也都有一个toString方法，该方法返回字符串的一个副本)都有toString方法。但null和undefined值没有这个方法。
   
   多数情况下，调用toString()方法不必传递参数。但是，在调用数值的toString（）方法时，可以传递一个参数：输出数值的基数。默认情况下，toString()方法十进制格式返回数值的字符串表示。而通过传递基数，toString（）可以输出二进制、八进制、十六进制，乃至其他任意有效进制格式表示的字符串值。例子:
-  
+  ```JavaScript
      var num=10;
      alert(num.toString());   // "10"
      alert(num.toString(2));  // 二进制表示 "1010"
      alert(num.toString(8));  // 八进制表示 "12"
      alert(num.toString(10)); // 十进制表示 "10"
      alert(num.toString(16)); // 十六进制表示 "a"
-     
+  ```   
   通过这个例子可以看出，通过指定基数，toString（）方法会改变输出的值。而数值10根据基数不同，可以在输出时候被转换为不同的数值格式。注意，默认的(没有参数的）输出值与指定基数10的输出值相同。
   
   在不知道要转换的值是不是null或undefined的情况下，还可以使用转型函数String（），这个函数能够将任何类型的值转换为字符串。String（）函数遵循下列转换规则
@@ -417,17 +423,17 @@
     * 如果值是undefined，则返回"undefined"
   
   下面是结果例子：
-  
-    var value1=10；
-    var value2=true;
-    var value3=null;
-    var value4;
+  ```JavaScript
+   var value1=10；
+   var value2=true;
+   var value3=null;
+   var value4;
     
-    alert("value1="+String(value1));  // "10"
-    alert("value2="+String(value2));  // "true"
-    alert("value3="+String(value3));  // "null"
-    alert("value4="+String(value4));  // "undefined"
-    
+   alert("value1="+String(value1));  // "10"
+   alert("value2="+String(value2));  // "true"
+   alert("value3="+String(value3));  // "null"
+   alert("value4="+String(value4));  // "undefined"
+  ```  
     这里先后转换了4个值：数值、布尔值、null和undefined。数值和布尔值的转换结果与调用toString（）方法得到的结果相同。因为null和undefined没有toString（）方法，使用String（）返回了两个值的字面量。
     
   如果要把某个值转换为字符串，可以使用加号操作符把它和一个字符串（""）加到一起
@@ -444,13 +450,13 @@
     
   在ECMAScript中，（就像Java中的java.lang.Object一样）Object类型是所有它的实例的基础。换句话说，Object类型所具有的任何属性和方法也同样存在于更具体的对象中。  
   	
-    * constructor: 保存着用于创建当前对象的目录。对前面的例子而言，构造函数(constructor)就是object(）。
-    * hasOwnProperty(propertyName): 用于检查给的属性在当前对象实例中（而不是在实例原型中）是否存在。其中，作为参数的属性名（propertyName）必须以字符串形式指定(例如：o.hasOwnProperty("name"))。
-    * isPrototepyOf(propertyName):用于检查传入的对象是否是当前对象的原型
-    * propertyIsEnumerable(propertyName):用于检查给定的属性能否能够作为for-in语句来枚举。与hasOwnerProperty方法一样，作为参数的属性名必须以字符串形式指定
-    * toLoactionString(): 返回对象的字符串表示，该字符串与执行环境的地区对应
-    * toString():返回对象的字符串表示
-    * valueOf():返回对象的字符串、数值或者布尔值表示，通常与toString（）方法的返回值相同
+    - constructor: 保存着用于创建当前对象的目录。对前面的例子而言，构造函数(constructor)就是object(）。
+    - hasOwnProperty(propertyName): 用于检查给的属性在当前对象实例中（而不是在实例原型中）是否存在。其中，作为参数的属性名（propertyName）必须以字符串形式指定(例如：o.hasOwnProperty("name"))。
+    - isPrototepyOf(propertyName):用于检查传入的对象是否是当前对象的原型
+    - propertyIsEnumerable(propertyName):用于检查给定的属性能否能够作为for-in语句来枚举。与hasOwnerProperty方法一样，作为参数的属性名必须以字符串形式指定
+    - toLoactionString(): 返回对象的字符串表示，该字符串与执行环境的地区对应
+    - toString():返回对象的字符串表示
+    - valueOf():返回对象的字符串、数值或者布尔值表示，通常与toString（）方法的返回值相同
     
   
   ## 3.5 操作符
@@ -515,21 +521,22 @@
   ### 4.1.2 复制变量值
   
   *复制基本类型值VS复制复杂类型值* 区别见书p69~70
-  
+  ```
   	var num=5;
  	var num1=num; 
-  
+  ```
   传递基本类型的时候，副本是一个值 ![](/img/JavaScriptNote1.png)
   
   ---
   
   例如：
- 	
-	var person=new Object();
-	person2 = person();
-	var person.name="Nicholas";
-	alert(person.name);  // Nicholas
   
+  ```JavaScript
+  var person=new Object();
+  person2 = person();
+  var person.name="Nicholas";
+  alert(person.name);  // Nicholas
+  ```
   传递复杂类型的时候，副本是一个指针![](/img/JavaScriptNote2.png) 
   
   ---		
@@ -540,54 +547,60 @@
   有不少开发人员在这一点上可能会感到困惑，因为访问变量有按值和按引用两种方式，而参数只能按值传递。
   
   在向参数传递基本类型的值时，被传递的值会被复制给一个局部变量（即命名参数，或者用ECMAScript的概念来说，就是arguments对象中的一个元素）。在向参数传递引用类型时，会把这个值在内存中的地址赋值给一个局部变量。因此这个局部变量的变化会反应在函数的外部。例子：
-  
-  	function addTen(num){
-  		num+=10;
-		return num;
-  	}
-  		var count=20;
-		var result=addTen(count);
-		alert(count);  // 20,没有变化
-	alert(result); // 30
   	
+ ```javaScript	
+  function addTen(num){
+  	num+=10;
+	return num;
+  }
+  var count=20;
+  var result=addTen(count);
+  alert(count);  // 20,没有变化
+  alert(result); // 30
+ ```
+  
   这里的函数addTen（）有一个参数num，而参数实际上是函数的局部变量。在调用这个函数时，变量count作为参数被传递给函数，这个变量的值是20.预收，数值20-倍复制给参数num一遍在addTen（）中使用。在函数内部，参数num的值被加上了10，但这一变化不会影响函数外部的count变量，参数num与变量count互不相识，它们仅仅是具有相同的值。但以这一变化不会影响函数外部的count变量。参数num与变量count互不相识，它们仅仅是具有相同的值。假如num是按引用传递的话，那么变量count的值也将变成30，从而反映函数内部的修改。
   
   当然，使用数值等基本类型来说明按值传递参数比教简单，但如果使用对象，那么问题就不怎么好理解了。再举个例子
   
-  	function setName（obj）{
-  		obj.name="Nicholas":
-  	}
-	var person=new Object():
-	setName(person);
-	alert(person.name);  // "Nicholas"
-	
+  ```javaScript
+  function setName（obj）{
+  	obj.name="Nicholas":
+  }
+  var person=new Object():
+  setName(person);
+  alert(person.name);  // "Nicholas"
+  ```
+  
   以上代码中创建一个对象，并将其保存在了变量 person 中。然后，这个变量被传递到 setName()函数中之后就被复制给了 obj 。在这个函数内部， obj 和person 引用的是同一个对象。换句话说，即使这个变量是按值传递的， obj 也会按引用来访问同一个对象。于是，当在函数内部为 obj 添加 name属性后，函数外部的 person 也将有所反映；因为 person 指向的对象在堆内存中只有一个，而且是全局对象。有很多开发人员错误地认为：在局部作用域中修改的对象会在全局作用域中反映出来，就说明参数是按引用传递的。为了证明对象是按值传递的，我们再看一看下面这个经过修改的例子
   
   经修改过后的例子：
   
-  	fuction setName(obj){
-  		obj.name="Nicholas";
-		obj=new Object();
-		obj.name="Greg";
-	  }
-	  var person=new Object();
-	  setName（person）;
-	  alert(person.name);	// "Nicholas"
-  
+  ```JavaScript
+  fuction setName(obj){
+  	obj.name="Nicholas";
+	obj=new Object();
+	obj.name="Greg";
+  }
+  var person=new Object();
+  setName（person）;
+  alert(person.name);	// "Nicholas"
+  ```
   这个例子与前一个例子的唯一区别，就是在setName()函数中添加了两行代码：一行代码为obj重新定义了一个对象，另一行代码为该对象定义了一个带有不同值的name属性。在把person传递给setName之后，其name属性被设置为"Nicholas"。然而，又将一个新对象赋给变量obj，同时其name属性设置为"Greg".如果person是按引用传递的，那么person就会自动被修改为指向其name属性值为"Greg"的新对象。如果person是按引用传递的，那你们person就会自动被修改为指向其name属性值为"Greg"的新对象。但是，当接下来再访问person.name时，显示的值任然是"Nicholas"。这说明即使在函数内部修改了参数的值，但原始的引用仍然保持未变。实际上，在函数内部重写obj时，这个变量引用的就是一个局部变量。而这个局部对象会在函数执行完毕后立即被销毁。
 
 	可以把ECAMScript的函数参数想象成一个局部变量
   ### 4.1.4 检测类型
   虽然在检测基本数据类型时typeof是非常得力的助手，但在检测引用类型的值时，这个操作符的用处不大。通常，我们并不想知道某个值是对象，而是想知道它是什么类型的对象。为此，ECMAScript提供了instanceof操作符，其语法如下所示：
   
-  	result=variable instanceof construtor
-	
+  ```JavaScript
+   result=variable instanceof construtor
+  ```  
    如果变量是给定引用类型（根据它的原型链来识别）的实例，那么instanceof操作符就会返回true。例子：
-   	
- 	 alert(person instanceof Object);  //变量person是Object吗？ 
- 	 alert(colors instanceof Array);   //变量colors是Array吗？
- 	 alert(pattern instanceof RegExp): //变量pattern是RegExp吗？
-  
+   ```JavaScript	
+   alert(person instanceof Object);  //变量person是Object吗？ 
+   alert(colors instanceof Array);   //变量colors是Array吗？
+   alert(pattern instanceof RegExp): //变量pattern是RegExp吗？
+  ```
   根据规定，所有引用类型的值都是Object的实例。因此，在检测一个引用类型和Object构造函数时，instanceof操作符始终会返回true。当然，如果instanceof操作符检测基本类型的值，则该操作符始终会返回false，因为基本类型不是对象。
   ![](/img/JavaScriptNote3.png)
   ## 4.2 执行环境及作用域
