@@ -516,19 +516,79 @@
   
   *复制基本类型值VS复制复杂类型值* 区别见书p69~70
   
-  
+  	var num=5;
+ 	var num1=num; 
   
   传递基本类型的时候，副本是一个值 ![](/img/JavaScriptNote1.png)
   
   ---
   
-  
+  例如：
+ 	
+	var person=new Object();
+	person2 = person();
+	var person.name="Nicholas";
+	alert(person.name);  // Nicholas
   
   传递复杂类型的时候，副本是一个指针![](/img/JavaScriptNote2.png) 
   
   ---		
   ### 4.1.3 传递参数
+  ECMAScript中所有函数的参数都是按值传递的，也就是说，把函数外部的值付给函数内部的参数，就和把值从一个变量复制到另一个变量一样。
+  	
+	基本类型值的值的传递如同基本类型变量的复制一样，而引用类型值的传递，则如同引用类型变量的复制一样。
+  有不少开发人员在这一点上可能会感到困惑，因为访问变量有按值和按引用两种方式，而参数只能按值传递。
+  
+  在向参数传递基本类型的值时，被传递的值会被复制给一个局部变量（即命名参数，或者用ECMAScript的概念来说，就是arguments对象中的一个元素）。在向参数传递引用类型时，会把这个值在内存中的地址赋值给一个局部变量。因此这个局部变量的变化会反应在函数的外部。例子：
+  
+  	function addTen(num){
+  		num+=10;
+		return num;
+  	}
+  		var count=20;
+		var result=addTen(count);
+		alert(count);  // 20,没有变化
+	alert(result); // 30
+  	
+  这里的函数addTen（）有一个参数num，而参数实际上是函数的局部变量。在调用这个函数时，变量count作为参数被传递给函数，这个变量的值是20.预收，数值20-倍复制给参数num一遍在addTen（）中使用。在函数内部，参数num的值被加上了10，但这一变化不会影响函数外部的count变量，参数num与变量count互不相识，它们仅仅是具有相同的值。但以这一变化不会影响函数外部的count变量。参数num与变量count互不相识，它们仅仅是具有相同的值。假如num是按引用传递的话，那么变量count的值也将变成30，从而反映函数内部的修改。
+  
+  当然，使用数值等基本类型来说明按值传递参数比教简单，但如果使用对象，那么问题就不怎么好理解了。再举个例子
+  
+  	function setName（obj）{
+  		obj.name="Nicholas":
+  	}
+	var person=new Object():
+	setName(person);
+	alert(person.name);  // "Nicholas"
+	
+  以上代码中创建一个对象，并将其保存在了变量 person 中。然后，这个变量被传递到 setName()函数中之后就被复制给了 obj 。在这个函数内部， obj 和person 引用的是同一个对象。换句话说，即使这个变量是按值传递的， obj 也会按引用来访问同一个对象。于是，当在函数内部为 obj 添加 name属性后，函数外部的 person 也将有所反映；因为 person 指向的对象在堆内存中只有一个，而且是全局对象。有很多开发人员错误地认为：在局部作用域中修改的对象会在全局作用域中反映出来，就说明参数是按引用传递的。为了证明对象是按值传递的，我们再看一看下面这个经过修改的例子
+  
+  经修改过后的例子：
+  
+  	fuction setName(obj){
+  		obj.name="Nicholas";
+		obj=new Object();
+		obj.name="Greg";
+	  }
+	  var person=new Object();
+	  setName（person）;
+	  alert(person.name);	// "Nicholas"
+  
+  这个例子与前一个例子的唯一区别，就是在setName()函数中添加了两行代码：一行代码为obj重新定义了一个对象，另一行代码为该对象定义了一个带有不同值的name属性。在把person传递给setName之后，其name属性被设置为"Nicholas"。然而，又将一个新对象赋给变量obj，同时其name属性设置为"Greg".如果person是按引用传递的，那么person就会自动被修改为指向其name属性值为"Greg"的新对象。如果person是按引用传递的，那你们person就会自动被修改为指向其name属性值为"Greg"的新对象。但是，当接下来再访问person.name时，显示的值任然是"Nicholas"。这说明即使在函数内部修改了参数的值，但原始的引用仍然保持未变。实际上，在函数内部重写obj时，这个变量引用的就是一个局部变量。而这个局部对象会在函数执行完毕后立即被销毁。
+
+	可以把ECAMScript的函数参数想象成一个局部变量
   ### 4.1.4 检测类型
+  虽然在检测基本数据类型时typeof是非常得力的助手，但在检测引用类型的值时，这个操作符的用处不大。通常，我们并不想知道某个值是对象，而是想知道它是什么类型的对象。为此，ECMAScript提供了instanceof操作符，其语法如下所示：
+  
+  	result=variable instanceof construtor
+	
+   如果变量是给定引用类型（根据它的原型链来识别）的实例，那么instanceof操作符就会返回true。例子：
+   	
+ 	 alert(person instanceof Object);  //变量person是Object吗？ 
+ 	 alert(colors instanceof Array);   //变量colors是Array吗？
+ 	 alert(pattern instanceof RegExp): //变量pattern是RegExp吗？
+  
+  根据规定，所有引用类型的值都是Object的实例。因此，在检测一个引用类型和Object构造函数时，instanceof操作符始终会返回true。当然，如果instanceof操作符检测基本类型的值，则该操作符始终会返回false，因为基本类型不是对象。
   
   ## 4.2 执行环境及作用域
   
