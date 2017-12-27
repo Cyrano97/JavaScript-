@@ -518,9 +518,9 @@
   传递基本类型的时候，副本是一个值
   传递复杂类型的时候，副本是一个指针
   
-  ！JavaScript-/img/JavaScriptNote1.png 
+  ！(JavaScript-/img/JavaScriptNote1.png) 
   
-  ！JavaScript-/img/JavaScriptNote2.png 
+  ！(JavaScript-/img/JavaScriptNote2.png) 
   		
   ### 4.1.3 传递参数
   ### 4.1.4 检测类型
