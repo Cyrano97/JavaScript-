@@ -860,7 +860,107 @@ var options=[,,,,,,]；   	  // 不要这样！这样会创建一个包含5或6�
 
 ## 5.8 小结
 
-[回到顶部](#index)
+# 第八章
+BOM
+
+ **ECMAScript**是 JavaScript的核心，但如果要在 Web中使用 JavaScript，那么**BOM（浏览器对象模型）**则无疑才是真正的核心。BOM 提供了很多对象，用于访问浏览器的功能，这些功能与任何网页内容无关。多年来，缺少事实上的规范导致BOM既有意思又有问题，因为浏览器提供商会按照各自的想法随意去扩展它。于是，浏览器之间共有的对象就成为了事实上的标准。这些对象在浏览器中得以存在，很大程度上是由于它们提供了与浏览器的互操作性。W3C为了把浏览器中 JavaScript最基本的部分标准化，已经将 BOM的主要方面纳入了 HTML5的规范中。
+ 
+## 8.1window对象
+   BOM 的核心对象是**window** ，它表示浏览器的一个实例。在浏览器中， window 对象有双重角色，它既是通过 JavaScript 访问浏览器窗口的一个**接口**，又是 ECMAScript 规定的**Global对象**。这意味着在网页中定义的任何一个对象、变量和函数，都以 window 作为其 Global 对象，因此有权访问parseInt() 等方法.
+   
+### 8.1.1全局作用域
+  由于**window对象**同时扮演着 ECMAScript中**Global**对象的角色，因此所有在全局作用域中声明
+的变量、函数都会变成 window 对象的属性和方法。来看下面的例子。
+```JavaScript  
+    var age=29;
+    function sayAge() {
+        alert(this.age);
+    }
+    alert(window.age);  //29
+    sayAge();		//29
+    window.sayAge();   	//29
+```
+  我们在全局作用域中定义了一个变量 age 和一个函数 sayAge() ，它们被自动归在了 window 对象名下。于是，可以通过 window.age 访问变量 age ，可以通过 window.sayAge() 访问函数 sayAge()。由于 sayAge() 存在于全局作用域中，因此 this.age 被映射到 window.age ，最终显示的仍然是正确的结果。
+  抛开全局变量会成为 window 对象的属性不谈，定义全局变量与在 window 对象上直接定义属性还是有一点差别：全局变量不能通过 delete 操作符删除，而直接在 window 对象上的定义的属性可以。
+```JavaScript
+   var age = 29;
+window.color = "red";
+//在 IE < 9 时抛出错误，在其他所有浏览器中都返回 false
+delete window.age;
+//在 IE < 9 时抛出错误，在其他所有浏览器中都返回 true
+delete window.color; //returns true
+alert(window.age); //29
+alert(window.color); //undefined
+```
+  刚才使用 var 语句添加的 window 属性有一个名为 [[Configurable]] 的特性，这个特性的值被设置为 false ，因此这样定义的属性不可以通过 delete 操作符删除。IE8及更早版本在遇到使用 delete删除 window 属性的语句时，不管该属性最初是如何创建的，都会抛出错误，以示警告。IE9 及更高版本不会抛出错误。
+  另外，还要记住一件事：尝试访问未声明的变量会抛出错误，但是通过查询 window 对象，可以知道某个可能未声明的变量是否存在。例如：
+```JavaScript
+//这里会抛出错误，因为 oldValue 未定义
+var newValue = oldValue;
+//这里不会抛出错误，因为这是一次属性查询
+//newValue 的值是 undefined
+var newValue = window.oldValue;
+```
+
+
+### 8.1.2窗口关系及框架
+  如果页面中包含框架，则每个框架都拥有自己的window对象，并且保存在frames集合中。在frames集合中，可以通过数值索引（从0开始，从左至右，从上到下）或者框架名称来访问相应的window对象。每个window对象都有一次那么熟悉，其中包含框架的名称。
+```HTML
+<html>
+<head>
+<title>Frameset Example</title>
+</head>
+<frameset rows="160,*">
+<frame src="frame.htm" name="topFrame">
+<frameset cols="50%,50%">
+<frame src="anotherframe.htm" name="leftFrame">
+<frame src="yetanotherframe.htm" name="rightFrame">
+</frameset>
+</frameset>
+</html>
+```
+以上代码创建了一个框架集，其中一个框架居上，两个框架居下。对这个例子而言，可以通过window.frames[0] 或者 window.frames["topFrame"] 来引用上方的框架。不过，恐怕你最好使用top 而非 window 来引用这些框架（例如，通过 top.frames[0] ）。
+我们知道， top 对象始终指向最高（最外）层的框架，也就是浏览器窗口。使用它可以确保在一个框架中正确地访问另一个框架。因为对于在一个框架中编写的任何代码来说，其中的 window 对象指向的都是那个框架的特定实例，而非最高层的框架。图 8-1 展示了在最高层窗口中，通过代码来访问前面例子中每个框架的不同方式.
+
+### 8.1.3窗口位置
+
+### 8.1.4窗口大小
+
+### 8.1.5导航和打开窗口
+
+### 8.1.6简写调用和超时调用
+
+### 8.1.7系统对话框
+
+## 8.2 location对象
+**location**是最有用的BOM对象之一，它提供了与当前窗口中加载的文档有关的信息，还提供了一些导航功能。事实上， location 对象是很特别的一个对象，因为它既是 window 对象的属性，也是document 对象的属性；换句话说，**window.location**和**document.location**引用的是同一个对象。location 对象的用处不只表现在它保存着当前文档的信息，还表现在它将 URL 解析为独立的片段，让开发人员可以通过不同的属性访问这些片段。下表列出了 location 对象的所有属性（注：省略了每个属性前面的 location 前缀）。
+### 8.2.1 查询字符串参数
+
+### 8.2.2 位置操作
+
+## 8.3 navigator对象
+
+### 8.3.1 检测插件
+
+### 8.3.2 注册处理程序
+
+## 8.4 screen对象
+
+## 8.5 history对象
+**history对象**保存着用户上网的历史记录，从窗口被打开的那一刻算起。因为history是**window对象**的属性，因此每个浏览器窗口、每个标签页乃至每个框架，都有自己的 history 对象与特定的window 对象关联。出于安全方面的考虑，开发人员无法得知用户浏览过的 URL。不过，借由用户访问过的页面列表，同样可以在不知道实际 URL 的情况下实现后退和前进。
+使用 go() 方法可以在用户的历史记录中任意跳转，可以向后也可以向前。这个方法接受一个参数，表示向后或向前跳转的页面数的一个整数值。负数表示向后跳转（类似于单击浏览器的“后退”按钮），正数表示向前跳转（类似于单击浏览器的“前进”按钮）。来看下面的例子。
+```
+	//后退一页
+	history.go(-1）;
+	//前进一页
+	history.go(1）;
+	//前进两页
+	history.go(2）;
+```
+除了上述几个方法外，history对象还有一个length属性，保存着历史记录的数量。最高数量包括了所有历史记录，即所有向后和向前的记录。对于加载到窗口、标签页
+
+
+## 8.6 小结
 
 # 第二十章 
 JSON
@@ -879,4 +979,6 @@ JSON
  JSON不支持变量、函数或对象示例，它既是一种表示及饿哦固化数据的格式，虽然与JavaScript中表示数据的某些语法相同，但它并不局限于JavaScript的范畴。
  ```
  
+ 
+[回到顶部](#index)
  # foot
